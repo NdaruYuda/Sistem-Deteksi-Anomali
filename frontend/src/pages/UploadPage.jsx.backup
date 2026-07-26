@@ -1,0 +1,114 @@
+// frontend/src/components/Sidebar.jsx
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import "./Sidebar.css";
+
+function Sidebar() {
+  const [openDashboard, setOpenDashboard] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const location = useLocation();
+
+  // Cek apakah path saat ini adalah dashboard
+  const isDashboardActive = location.pathname === "/baseline" || 
+                           location.pathname === "/simclr" || 
+                           location.pathname === "/";
+
+  // Toggle sidebar collapse
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  return (
+    <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+      {/* Tombol Toggle */}
+      <button 
+        className="sidebar-toggle" 
+        onClick={toggleSidebar}
+        aria-label={isCollapsed ? "Buka Sidebar" : "Tutup Sidebar"}
+      >
+        {isCollapsed ? '→' : '←'}
+      </button>
+
+      {/* Header */}
+      <div className="sidebar-header">
+        <div className="logo-icon">🛡️</div>
+        {!isCollapsed && (
+          <>
+            <h2>Deteksi Anomali</h2>
+            <span className="subtitle">Network Anomaly Detection</span>
+          </>
+        )}
+      </div>
+
+      {/* Menu */}
+      <nav className="sidebar-nav">
+        <ul>
+          {/* Dashboard Menu */}
+          <li>
+            <div 
+              className={`menu-title ${isDashboardActive ? 'active-menu' : ''}`}
+              onClick={() => setOpenDashboard(!openDashboard)}
+            >
+              <span className="menu-icon">📊</span>
+              {!isCollapsed && (
+                <>
+                  <span className="menu-label">Dashboard</span>
+                  <span className="menu-arrow">{openDashboard ? '▼' : '▶'}</span>
+                </>
+              )}
+            </div>
+
+            {!isCollapsed && openDashboard && (
+              <ul className="submenu">
+                <li className={location.pathname === "/baseline" ? "active" : ""}>
+                  <Link to="/baseline">
+                    <span className="submenu-icon">⚖️</span>
+                    Dataset Seimbang
+                  </Link>
+                </li>
+                <li className={location.pathname === "/simclr" ? "active" : ""}>
+                  <Link to="/simclr">
+                    <span className="submenu-icon">📊</span>
+                    Dataset Tidak Seimbang
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          {/* Upload Menu */}
+          <li className={location.pathname === "/upload" ? "active" : ""}>
+            <Link to="/upload" data-tooltip="Upload Dataset">
+              <span className="menu-icon">📤</span>
+              {!isCollapsed && <span className="menu-label">Upload Dataset</span>}
+            </Link>
+          </li>
+
+          {/* History Menu */}
+          <li className={location.pathname === "/history" ? "active" : ""}>
+            <Link to="/history" data-tooltip="Riwayat Pengujian">
+              <span className="menu-icon">📜</span>
+              {!isCollapsed && <span className="menu-label">Riwayat Pengujian</span>}
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Footer */}
+      {!isCollapsed && (
+        <div className="sidebar-footer">
+          <div className="footer-divider"></div>
+          <div className="footer-info">
+            <span className="footer-version">v1.0.0</span>
+            <span className="footer-status">
+              <span className="status-dot"></span>
+              Sistem Aktif
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Sidebar;

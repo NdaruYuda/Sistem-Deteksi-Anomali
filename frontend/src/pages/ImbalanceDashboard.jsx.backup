@@ -1,0 +1,171 @@
+import { useEffect, useState } from "react";
+import API from "../api/api";
+import MetricCard from "../components/MetricCard";
+import {PieChart,Pie,Cell,Tooltip,Legend} from "recharts";
+import "../styles/dashboard.css";
+
+function ImbalancedDashboard() {
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const chartData = data
+  ? [
+      {
+        name: "Normal",
+        value: data.normal_count,
+      },
+      {
+        name: "Anomali",
+        value: data.anomaly_count,
+      },
+    ]
+  : [];
+
+const COLORS = ["#22c55e", "#ef4444"];
+
+  useEffect(() => {
+
+    setLoading(true);
+
+    API.get("/dashboard/simclr")
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
+  }, []);
+
+  if (loading) {
+    return <h2>Memuat data...</h2>;
+  }
+
+  if (!data || data.message) {
+    return <h2>Belum ada data pengujian</h2>;
+  }
+
+  return (
+    <div className="dashboard-page">
+
+      <div className="dashboard-header">
+        <h1>Dashboard Dataset Tidak Seimbang</h1>
+
+        <p>
+          Evaluasi Model SimCRL Pada Data tidak Seimbang
+        </p>
+      </div>
+
+      <div className="metrics-grid">
+
+        <MetricCard
+          title="Total Pengujian"
+          value={data.total_test}
+        />
+
+        <MetricCard
+          title="Recall"
+          value={`${(data.recall * 100).toFixed(2)}%`}
+        />
+
+        <MetricCard
+          title="Precision"
+          value={`${(data.precision * 100).toFixed(2)}%`}
+        />
+
+        <MetricCard
+          title="F1 Score"
+          value={`${(data.f1_score * 100).toFixed(2)}%`}
+        />
+
+
+      </div>
+
+      <div className="dashboard-grid">
+
+        <div className="panel">
+
+          <h2>Distribusi Prediksi</h2>
+
+          <PieChart
+            width={450}
+            height={280}
+          >
+            <Pie
+              data={chartData}
+              dataKey="value"
+              outerRadius={90}
+              label
+            >
+              {chartData.map((entry,index)=>(
+                <Cell
+                  key={index}
+                  fill={COLORS[index]}
+                />
+              ))}
+            </Pie>
+
+            <Tooltip />
+            <Legend />
+
+          </PieChart>
+
+        </div>
+
+        <div className="panel">
+
+          <h2>Informasi Model</h2>
+
+          <div className="info-row">
+            <span className="info-label">
+              Model
+            </span>
+
+            <span className="info-value">
+              Baseline MLP
+            </span>
+          </div>
+
+          <div className="info-row">
+            <span className="info-label">
+              Data Normal
+            </span>
+
+            <span className="info-value">
+              {data.normal_count}
+            </span>
+          </div>
+
+          <div className="info-row">
+            <span className="info-label">
+              Data Anomali
+            </span>
+
+            <span className="info-value">
+              {data.anomaly_count}
+            </span>
+          </div>
+
+          <div className="info-row">
+            <span className="info-label">
+              Total Data
+            </span>
+
+            <span className="info-value">
+              {data.normal_count + data.anomaly_count}
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
+
+export default ImbalancedDashboard;

@@ -1,0 +1,89 @@
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import "./Sidebar.css";
+
+function Sidebar() {
+
+  const [openDashboard, setOpenDashboard] = useState(true);
+
+  const location = useLocation();
+
+  return (
+    <div className="sidebar">
+
+      <div className="sidebar-header">
+        <h2>Deteksi Anomali Jaringan</h2>
+      </div>
+
+      <ul>
+
+        <li
+          className="menu-title"
+          onClick={() =>
+            setOpenDashboard(!openDashboard)
+          }
+        >
+          📊 Dashboard
+        </li>
+
+        {openDashboard && (
+          <ul className="submenu">
+
+            <li
+              className={
+                location.pathname === "/baseline"
+                ? "active"
+                : ""
+              }
+            >
+              <Link to="/baseline">
+                Dataset Seimbang
+              </Link>
+            </li>
+
+            <li
+              className={
+                location.pathname === "/simclr"
+                ? "active"
+                : ""
+              }
+            >
+              <Link to="/simclr">
+                Dataset Tidak Seimbang
+              </Link>
+            </li>
+
+          </ul>
+        )}
+
+        <li
+          className={
+            location.pathname === "/upload"
+            ? "active"
+            : ""
+          }
+        >
+          <Link to="/upload">
+            📤 Upload Dataset
+          </Link>
+        </li>
+
+        <li
+          className={
+            location.pathname === "/history"
+            ? "active"
+            : ""
+          }
+        >
+          <Link to="/history">
+            📜 Riwayat Pengujian
+          </Link>
+        </li>
+
+      </ul>
+
+    </div>
+  );
+}
+
+export default Sidebar;

@@ -1,0 +1,509 @@
+/* frontend/src/pages/KelolaUser.css */
+.kelola-user-page {
+  padding: 20px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.page-header h1 {
+  font-size: 26px;
+  color: var(--text-primary);
+}
+
+.page-subtitle {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.table-container {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-light);
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.user-table th {
+  text-align: left;
+  padding: 12px 16px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.user-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.user-table tr:hover td {
+  background: var(--bg-hover);
+}
+
+.badge-me {
+  font-size: 11px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 6px;
+}
+
+.dark-mode .badge-me {
+  background: #1e3a5f;
+  color: #60a5fa;
+}
+
+.role-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.role-badge.admin {
+  background: #fae8ff;
+  color: #7c3aed;
+}
+
+.dark-mode .role-badge.admin {
+  background: #3b1e5f;
+  color: #c084fc;
+}
+
+.role-badge.petugas {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.dark-mode .role-badge.petugas {
+  background: #1e3a5f;
+  color: #60a5fa;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.dark-mode .status-badge.active {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.status-badge.inactive {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.dark-mode .status-badge.inactive {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-edit,
+.btn-delete {
+  border: none;
+  background: var(--bg-hover);
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.btn-edit:hover {
+  background: #dbeafe;
+}
+
+.btn-delete:hover {
+  background: #fecaca;
+}
+
+.dark-mode .btn-edit:hover {
+  background: #1e3a5f;
+}
+
+.dark-mode .btn-delete:hover {
+  background: #7f1d1d;
+}
+
+/* ============================================
+   TOGGLE BUTTON
+   ============================================ */
+
+.btn-toggle {
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  background: var(--bg-hover);
+}
+
+.btn-toggle.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.btn-toggle.inactive {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.btn-toggle:hover {
+  transform: scale(1.05);
+}
+
+.dark-mode .btn-toggle.active {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.dark-mode .btn-toggle.inactive {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  padding: 32px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+  font-size: 22px;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+.modal-content .form-group {
+  margin-bottom: 16px;
+}
+
+.modal-content .form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.modal-content .form-group input,
+.modal-content .form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  background: var(--bg-input);
+  color: var(--text-primary);
+}
+
+.modal-content .form-group input:focus,
+.modal-content .form-group select:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-cancel,
+.btn-save {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+}
+
+.btn-cancel {
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+}
+
+.btn-cancel:hover {
+  background: var(--border-color);
+}
+
+.btn-save {
+  background: #2563eb;
+  color: white;
+}
+
+.btn-save:hover {
+  background: #1d4ed8;
+}
+
+/* ============================================
+   NOTIFICATION CARD
+   ============================================ */
+
+.notification-card {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 1000;
+  min-width: 320px;
+  max-width: 480px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  animation: slideInRight 0.4s ease;
+  border-left: 4px solid transparent;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.notification-card.success {
+  background: #f0fdf4;
+  border-left-color: #22c55e;
+  color: #166534;
+}
+
+.notification-card.error {
+  background: #fef2f2;
+  border-left-color: #ef4444;
+  color: #991b1b;
+}
+
+.notification-card.warning {
+  background: #fffbeb;
+  border-left-color: #f59e0b;
+  color: #92400e;
+}
+
+.dark-mode .notification-card.success {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.dark-mode .notification-card.error {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+
+.dark-mode .notification-card.warning {
+  background: #78350f;
+  color: #fbbf24;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notification-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.notification-message {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+  padding: 4px;
+  transition: opacity 0.2s;
+}
+
+.notification-close:hover {
+  opacity: 1;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-table {
+    font-size: 13px;
+  }
+
+  .user-table th,
+  .user-table td {
+    padding: 8px 10px;
+  }
+
+  .modal-content {
+    padding: 20px;
+    margin: 16px;
+  }
+
+  .notification-card {
+    top: 70px;
+    right: 12px;
+    left: 12px;
+    min-width: unset;
+    max-width: unset;
+    padding: 14px 16px;
+  }
+
+  .notification-message {
+    font-size: 13px;
+  }
+
+  .action-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-edit,
+  .btn-delete,
+  .btn-toggle {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header h1 {
+    font-size: 20px;
+  }
+
+  .user-table {
+    font-size: 12px;
+  }
+
+  .user-table th,
+  .user-table td {
+    padding: 6px 8px;
+  }
+
+  .modal-content {
+    padding: 16px;
+    margin: 12px;
+  }
+
+  .modal-content h2 {
+    font-size: 18px;
+  }
+
+  .notification-card {
+    top: 60px;
+    right: 8px;
+    left: 8px;
+    padding: 12px 14px;
+  }
+
+  .notification-message {
+    font-size: 12px;
+  }
+
+  .notification-icon {
+    font-size: 16px;
+  }
+
+  .action-buttons {
+    gap: 4px;
+  }
+
+  .btn-edit,
+  .btn-delete,
+  .btn-toggle {
+    padding: 3px 6px;
+    font-size: 11px;
+  }
+
+  .btn-primary {
+    padding: 8px 16px;
+    font-size: 13px;
+    width: 100%;
+    text-align: center;
+  }
+}
